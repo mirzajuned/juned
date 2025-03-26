@@ -1,4 +1,4 @@
-class Departments::Admission 
+class Admission 
   include Mongoid::Document
   include Mongoid::Timestamps
    belongs_to :patient, class_name: "Patient"
