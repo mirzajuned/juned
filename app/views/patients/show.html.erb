@@ -1,33 +1,12 @@
-<h1>Patient Name: <%= @patient.fullname %></h1>
-<h1>Patient Age: <%= @patient.age %></h1>
-<h1>Patient Phone: <%= @patient.phone_number %></h1>
+<%= turbo_frame_tag :patient_details do %>
+  <div class="border p-4 rounded-md shadow-md mb-2">
+    <h1>Patient Details</h1>
+    <div class="flex"><span class="font-bold">Name: </span><span> <%= @patient.fullname %></span></div>
+    <div class="flex"><span class="font-bold">Age: </span><span> <%= @patient.age %></span></div>
+    <div class="flex"><span class="font-bold">Phone: </span><span> <%= @patient.phone_number %></span></div>
 
-<!-- Appointments Section -->
-<div id="appointments">
-  <h2>Appointments</h2>
-  <%= render @appointments %>
-  
-  <%= form_with model: [@patient, @appointment], data: { turbo_frame: "appointments" } do |f| %>
-    <%= f.datetime_field :scheduled_at %>
-    <%= f.submit "Add Appointment" %>
-  <% end %>
+    <%= link_to "New Appointment", new_departments_appointment_path(patient_id: @patient.id), data: { turbo_frame: "patient_details" } %>
+  </div>
+<% end %>
 
-  <%= turbo_frame_tag "appointments" do %>
-    <%= render @appointments %>
-  <% end %>
-</div>
-
-<!-- Admissions Section -->
-<div id="admissions">
-  <h2>Admissions</h2>
-  <%= render @admissions %>
-
-  <%= form_with model: [@patient, @admission], data: { turbo_frame: "admissions" } do |f| %>
-    <%= f.text_field :reason %>
-    <%= f.submit "Add Admission" %>
-  <% end %>
-
-  <%= turbo_frame_tag "admissions" do %>
-    <%= render @admissions %>
-  <% end %>
-</div>
+<turbo-frame id="patient_details"></turbo-frame>

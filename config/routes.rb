@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
-  resources :patients
+  get "up" => "rails/health#show", as: :rails_health_check
   root "patients#index"
-  resources :patients 
-  namespace :department do
-  
-    resources :appointments, only: [:create]
-    resources :admissions, only: [:create]
-  
+
+  resources :patients
+  resources :admissions
+  resources :appointments
+
+  namespace :departments do
+    resources :appointments
+    resources :appointments
   end
 end
